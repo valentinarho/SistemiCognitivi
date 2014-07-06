@@ -1,0 +1,32 @@
+# un uomo adora tutte le donne
+exists x.(man(x) & all z2.(women(z2) -> adore(x,z2)))
+
+# Paolo ama Francesca
+love(paolo,francesca)
+
+# Un uomo ama Francesca
+exists x.(man(x) & love(x,francesca))
+
+# Francesca odia un uomo
+exists z4.(man(z4) & hate(francesca,z4))
+
+# Paolo e Dante sognano Francesca e Beatrice
+(dream(paolo,francesca) & dream(paolo,beatrice) & dream(dante,francesca) & dream(dante,beatrice))
+
+# Tutti gli uomini adorano una donna
+all x.(man(x) -> exists z6.(woman(z6) & adore(x,z6)))
+
+# Caronte naviga
+sail(caronte)
+
+# Dante e un uomo visitano un inferno
+(exists z8.(hell(z8) & visit(dante,z8)) & exists x.(man(x) & exists z9.(hell(z9) & visit(x,z9))))
+
+# Una donna e Dante lasciano un dono a Virgilio
+(exists x.(woman(x) & exists z10.(gift(z10) & leave(x,z10,virgilio))) & exists z11.(gift(z11) & leave(dante,z11,virgilio)))
+
+# Dante rivede le stelle
+exists z12.(star(z12) & see(dante,z12))
+
+# Dante adora tutte le donne
+all z13.(woman(z13) -> adore(dante,z13))
