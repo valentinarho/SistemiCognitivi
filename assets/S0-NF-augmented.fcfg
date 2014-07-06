@@ -1,0 +1,121 @@
+% start S0
+
+############################ 
+# Produzioni
+############################
+
+# S0 -> NP VP | NProp VP
+# S:f(a) -> NP:f VP:a
+S0[SEM = <?subj(?vp)>] -> NP[NUM=?n,SEM=?subj] VP[NUM=?n,SEM=?vp]
+S0[SEM = <?subj(?vp)>] -> NProp[NUM=?n,GEN=?g,SEM=?subj] VP[NUM=?n,SEM=?vp]
+
+# Sintagmi nominali
+# NP -> Indet N
+# NP:f(a) -> Indet:f N:a
+NP[NUM=?n,GEN=?g,SEM=<?indet(?nom)> ] -> Indet[NUM=?n,GEN=?g,SEM=?indet] N[NUM=?n,GEN=?g,SEM=?nom]
+# NP -> Det N
+# NP:f(a) -> Det:f N:a
+NP[NUM=?n,GEN=?g,SEM=<?det(?nom)> ] -> Det[NUM=?n,GEN=?g,SEM=?det] N[NUM=?n,GEN=?g,SEM=?nom]
+
+# Queste regole sono state inserite per trattare in modo particolare il caso di "tutte le stelle"
+# in questo caso infatti la semantica dell'articolo viene ignorata per lasciar spazio alla semantica del tutti
+# NP -> PreDet Det N
+# NP:f(a) -> PreDet:f Det N:a
+NP[NUM=?n,GEN=?g,SEM=<?pd(?np)>] -> PreDet[NUM=?n,SEM=?pd,GEN=?g] Det[NUM=?n,GEN=?g] N[NUM=?n,GEN=?g,SEM=?np]
+# NP -> PreDet Indet N
+# NP:f(a) -> PreDet:f Indet N:a
+NP[NUM=?n,GEN=?g,SEM=<?pd(?np)>] -> PreDet[NUM=?n,GEN=?g,SEM=?pd] Indet[NUM=?n,GEN=?g] N[NUM=?n,GEN=?g,SEM=?np]
+
+# NP -> CNP NP
+# NP:f(a) -> CNP:f NP:a
+NP[NUM=pl,SEM=<?cnp(?np)> ] -> CNP[SEM=?cnp] NP[SEM=?np]
+# NP -> CNP NPropr
+# NP:f(a) -> CNP:f NProp:a
+NP[NUM=?pl,SEM=<?cnp(?nprop)> ] -> CNP[SEM=?cnp] NProp[SEM=?nprop]
+
+# Congiunzione
+# CNP -> NP Cong
+# CNP:f(a) -> NP:a Cong:f
+CNP[SEM=<?cng(?np)>] -> NP[SEM=?np] Cong[SEM=?cng]
+# CNP -> NProp Cong
+# CNP:f(a) -> NProp:a Cong:f
+CNP[SEM=<?cng(?np)>] -> NProp[SEM=?np] Cong[SEM=?cng]
+
+# Sintagmi verbali
+# VP -> V NP
+# VP:f(a) -> V:f NP:a
+VP[NUM=?n,SEM=<?v(?obj)>] -> V[NUM=?n,SEM=?v] NP[SEM=?obj]
+# VP -> V NProp
+# VP:f(a) -> V:f NProp:a
+VP[NUM=?n,SEM=<?v(?obj)>] -> V[NUM=?n,SEM=?v] NProp[SEM=?obj]
+
+# VP -> VP PP
+# VP:f(a) -> VP:a PP:f
+VP[NUM=?n,SEM=<?pp(?vp)>] -> VP[NUM=?n,SEM=?vp] PP[SEM=?pp]
+
+# Preposizioni
+# PP -> P NP
+# PP:f(a) -> P:f NP:a
+PP[SEM=<?p(?np)>] -> P[SEM=?p] NP[SEM=?np]
+# PP -> P NProp
+# PP:f(a) -> P:f NProp:a
+PP[SEM=<?p(?np)>] -> P[SEM=?p] NProp[SEM=?np]
+
+############################# 
+# Lessico
+############################# 
+
+# NProp -> 'Paolo' | 'Francesca' | 'Dante' | 'Caronte' | 'Beatrice' | 'Virgilio'
+NProp[NUM=sg,GEN=m,SEM=<\P.P(paolo)>] -> 'Paolo'
+NProp[NUM=sg,GEN=f,SEM=<\P.P(francesca)>] -> 'Francesca'
+NProp[NUM=sg,GEN=m,SEM=<\P.P(dante)>] -> 'Dante'
+NProp[NUM=sg,GEN=m,SEM=<\P.P(virgilio)>] -> 'Virgilio'
+NProp[NUM=sg,GEN=f,SEM=<\P.P(beatrice)>] -> 'Beatrice'
+NProp[NUM=sg,GEN=m,SEM=<\P.P(caronte)>] -> 'Caronte'
+
+# N -> 'donna' | 'uomo' | 'inferno' | 'dono' | 'donne' | 'uomini' | 'stelle'
+N[NUM=sg,GEN=f,SEM=<\x.woman(x)>] -> 'donna'
+N[NUM=pl,GEN=f,SEM=<\x.woman(x)>] -> 'donne'
+N[NUM=sg,GEN=m,SEM=<\x.man(x)>] -> 'uomo'
+N[NUM=pl,GEN=m,SEM=<\x.man(x)>] -> 'uomini'
+N[NUM=pl,GEN=f,SEM=<\x.star(x)>] -> 'stelle'
+N[NUM=sg,GEN=m,SEM=<\x.hell(x)>] -> 'inferno'
+N[NUM=sg,GEN=m,SEM=<\x.gift(x)>] -> 'dono'
+
+# Det -> 'le' | 'gli'
+Det[NUM=pl,GEN=m,SEM=<\P Q.exists x.(P(x) & Q(x))>] -> 'gli' | 'Gli'
+Det[NUM=pl,GEN=f,SEM=<\P Q.exists x.(P(x) & Q(x))>] -> 'le' | 'Le'
+
+# Indet -> 'un' | 'una' | 'Un' | 'Una'
+Indet[NUM=sg,GEN=m,SEM=<\P Q.exists x.(P(x) & Q(x))>] -> 'un' | 'Un'
+Indet[NUM=sg,GEN=f,SEM=<\P Q.exists x.(P(x) & Q(x))>] -> 'una' | 'Una'
+
+# PreDet -> 'tutti' | 'tutte' | 'Tutti'
+PreDet[NUM=pl,GEN=m,SEM=<\P Q.all x.(P(x) -> Q(x))>] -> 'tutti' | 'Tutti'
+PreDet[NUM=pl,GEN=f,SEM=<\P Q.all x.(P(x) -> Q(x))>] -> 'tutte' | 'Tutte'
+
+# V -> 'ama' | 'odia' | 'adora' | 'rivede' | 'visitano' | 'lasciano' | 'adorano' | 'sognano'
+# V[NUM=sg,SEM=<\X x.X(\y.love(x,y))>,TNS=pres] -> 'ama'
+V[NUM=sg,SEM=<\R \x.R(\y.love(x,y))>,TNS=pres] -> 'ama'
+V[NUM=pl,SEM=<\X x.X(\y.love(x,y))>,TNS=pres] -> 'amano'
+V[NUM=sg,SEM=<\X x.X(\y.hate(x,y))>,TNS=pres] -> 'odia'
+V[NUM=sg,SEM=<\X x.X(\y.see(x,y))>,TNS=pres] -> 'rivede'
+V[NUM=sg,SEM=<\X x.X(\y.adore(x,y))>,TNS=pres] -> 'adora'
+V[NUM=pl,SEM=<\X x.X(\y.adore(x,y))>,TNS=pres] -> 'adorano' 
+V[NUM=pl,SEM=<\X x.X(\y.visit(x,y))>,TNS=pres] -> 'visitano'
+V[NUM=pl,SEM=<\Y \z \x.Y(\y.leave(x,y,z))>,TNS=pres] -> 'lasciano'
+V[NUM=pl,SEM=<\X x.X(\y.dream(x,y))>,TNS=pres] -> 'sognano'
+
+V[NUM=sg,SEM=<\Y \z \x.Y(\y.leave(x,y,z))>,TNS=pres] -> 'lascia'
+
+# VP -> 'naviga'
+VP[NUM=sg,SEM=<\x.sail(x)>,TNS=pres] -> 'naviga'
+
+# P -> 'a'
+P[SEM=<\x.x>] -> 'a'
+
+# Cong -> 'e'
+Cong[SEM=<\X Y R.(X(R) & Y(R))>,NUM=pl] -> 'e'
+
+
+
