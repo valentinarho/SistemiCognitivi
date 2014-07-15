@@ -1,3 +1,4 @@
+# Implementazione dell'algoritmo cky per recognition e parsing
 from pprint import pprint
 import nltk
 import sys

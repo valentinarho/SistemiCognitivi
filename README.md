@@ -3,7 +3,7 @@ Sistemi Cognitivi - Traduzione
 
 Progetto di traduzione automatica interlingua per il corso di Sistemi cognitivi
 
-# README
+### Utilizzo
 
 Posizionarsi nella cartella del progetto python e dare i comandi
 

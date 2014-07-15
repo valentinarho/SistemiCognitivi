@@ -3,7 +3,6 @@ from nltk.parse.chart import ChartParser as Chart
 from nltk import load_parser
 import re
 import json
-
 import cky
 import sentence_planner
 import sys
