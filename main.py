@@ -115,16 +115,22 @@ def test_recogniser(frase):
 
 
 if __name__ == "__main__":
+    # no argomenti
     if len(sys.argv) == 1:
-        frase = "Un uomo adora tutte le donne"
-        print frase
+        # test per tutte le frasi
+        for frase in frasi:
+            t2 = getAugmentedTree(frase)
+            formula = getFormulaFromRoot(t2)
+            plan = sentence_planner.getSentencePlan(formula)
+            print json.dumps(plan)
 
         # TEST CKY + SEMANTICA PER TUTTE LE FRASI
-
         # test_nf_grammar()
         # test_nf_augmented_grammar()
 
         # TEST PER UNA SINGOLA FRASE
+        # frase = "Un uomo adora tutte le donne"
+        # print frase
         # test_completo_1_frase(frase)
 
         # TEST SEPARATI
@@ -144,16 +150,15 @@ if __name__ == "__main__":
         # per ottenere l'albero di parsing con la grammatica con semantica
         # t2 = getAugmentedTree(frase)
         # print t2
-        # t2.draw()
 
         # per ottenere la formula logica relativa all'albero con semantica
-        t2 = getAugmentedTree(frase)
-        formula = getFormulaFromRoot(t2)
+        # t2 = getAugmentedTree(frase)
+        # formula = getFormulaFromRoot(t2)
         # print formula
 
         # per trasformare la formula logica in un sentence plan
-        plan = sentence_planner.getSentencePlan(formula)
-        print json.dumps(plan)
+        # plan = sentence_planner.getSentencePlan(formula)
+        # print json.dumps(plan)
 
     else:
         # chiamato da linea di comando, il primo parametro e' una frase
